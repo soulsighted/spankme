@@ -1,0 +1,79 @@
+local Queef = "q"
+
+---
+checkcaller = checkcaller
+newcclosure = newcclosure
+hookmetamethod = hookmetamethod
+
+local Grind = false
+local Bringmetacos = game:GetService("RunService")
+local Titty = game:GetService("Players").LocalPlayer
+local Bean = LocalPlayer:GetMouse()
+
+--- toggles
+Bean.KeyDown:connect(function(Monkey)
+    if Monkey == string.lower(Queef) then
+        pcall(function()
+            if Grind == false then
+                Grind = true
+                print("enabled")
+            elseif Grind == true then
+                Grind = false
+                print("disabled")
+            end
+        end)
+    end 
+end)
+
+Bean.KeyDown:connect(function(Monkey)
+    if Monkey == ("=") then
+        game:GetService("TeleportService"):Teleport(game.PlaceId, LocalPlayer)
+    end
+end)
+
+---desync
+function RandomNumberRange(a)
+    return math.random(-a * 100, a * 100) / 100
+end
+
+function RandomVectorRange(a, b, c)
+    return Vector3.new(RandomNumberRange(a), RandomNumberRange(b), RandomNumberRange(c))
+end
+
+local Mexican = {}
+Bean.HeartBeat:Connect(function()
+    if Grind == true then
+        Mexican[1] = LocalPlayer.Character.HumanoidRootPart.CFrame
+        Mexican[2] = LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity
+
+        local Damian = LocalPlayer.Character.HumanoidRootPart.CFrame
+        
+        Damian = Damian * CFrame.new(Vector3.new(0, 0, 0))
+        Damian = Damian * CFrame.Angles(math.rad(RandomNumberRange(180)), math.rad(RandomNumberRange(180)), math.rad(RandomNumberRange(180)))
+        
+        LocalPlayer.Character.HumanoidRootPart.CFrame = Damian
+
+        LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = vector3.new(1, 1, 1) * 130930390193019
+
+        Bringmetacos.RenderStep:wait()
+        
+        LocalPlayer.Character.HumanoidRootPart.CFrame = Mexican[1]
+        LocalPlayer.Character.HumanoidRootPart.AssemblyLinearVelocity = Mexican[2]
+    end
+end)
+
+local Chorizo = nil
+Chorizo = hookmetamethod(game, "__index", newcclosure(function(self, key)
+    if Grind == true then
+        if not checkcaller() then
+            if key == "CFrame" and Grind == true and LocalPlayer.Character and LocalPlayer.Character:FindFirstChild("HumanoidRootPart") and LocalPlayer.Character:FindFirstChild("Humanoid") and LocalPlayer.Character:FindFirstChild("Humanoid").Health > 0 then
+                if self == LocalPlayer.Character.HumanoidRootPart then
+                    return Mexican[1] or CFrame.new()
+                elseif self == LocalPlayer.Character.Head then
+                    return Mexican[1] and Mexican[1] + Vector3.new(0, LocalPlayer.Character.HumanoidRootPart.Size / 2 + 0.5, 0) or CFrame.new()
+                end
+            end
+        end
+    end
+    return chorizo(self, key)
+end))
